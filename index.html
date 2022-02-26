@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleVetr</title>
+    <!-- Notification Push javascript file -->
+    <script src="/notificationPush.js"></script>
+    <script type="text/javascript">
+      var clevertap = {
+        event: [],
+        profile: [],
+        account: [],
+        onUserLogin: [],
+        notifications: [],
+        privacy: [],
+      };
+      // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+      clevertap.account.push({ id: "W44-ZWK-446Z" });
+      clevertap.privacy.push({ optOut: false }); //set the flag to true, if the user of the device opts out of sharing their data
+      clevertap.privacy.push({ useIP: false }); //set the flag to true, if the user agrees to share their IP data
+      (function () {
+        var wzrk = document.createElement("script");
+        wzrk.type = "text/javascript";
+        wzrk.async = true;
+wzrk.src =("https:"==document.location.protocol?"https://d2r1yp2w7bby2u.cloudfront.net":"http://static.clevertap.com") + "/js/a.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(wzrk, s);
+      })();
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+        import {} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyC_yh-aRFj4CGbNcfxw-8yJ1ZoVS6nINGY",
+          authDomain: "webct-54fd3.firebaseapp.com",
+          projectId: "webct-54fd3",
+          storageBucket: "webct-54fd3.appspot.com",
+          messagingSenderId: "47762517969",
+          appId: "1:47762517969:web:52752350c616cfbadfbaf0",
+          measurementId: "G-863BM0FY7N"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+  <body>
+    <h1>Web SDK Integration Test!</h1>
+    <!-- onUserLogin -->
+    <script src="scripts.js"></script>
+    <!-- event -->
+    <button id="event" onclick="pushEvent()">Push Event</button>
+    <div class="snackbar" id="sb1">Push Event Clicked!</div>
+    <script>
+      let pushEvent = () => {
+        clevertap.event.push("ProductViewed");
+        //snackbar
+        var x = document.getElementById("sb1");
+        x.classList.add("show");
+        setTimeout(function () {
+          x.className = x.className.replace("show", "");
+        }, 3000);
+      };
+    </script>
+    <!-- key/value events -->
+    <br /><br />
+    <button id="events" onclick="events()">Key/Value Push Event</button>
+    <div class="snackbar" id="sb2">Key/Value Push Event Clicked!</div>
+    <script>
+      let events = () => {
+        clevertap.event.push("Product Viewed", {
+          "Product name": "Casio Chronograph Watch",
+          Category: "Mens Accessories",
+          Price: 59.99,
+        });
+        //snackbar
+        var x = document.getElementById("sb2");
+        x.classList.add("show");
+        setTimeout(function () {
+          x.className = x.className.replace("show1", "");
+        }, 3000);
+      };
+    </script>
+    <!-- profile push  -->
+    <br /><br />
+    <button id="profilepush" onclick="profilePush()">Profile Push</button>
+    <div class="snackbar" id="sb3">Profile Push Clicked!</div>
+    <script>
+      let profilePush = () => {
+        clevertap.profile.push({
+          Site: {
+            "Customer Type": "Gold",
+            "MSG-email": true,
+            "MSG-push": true,
+            "MSG-sms": true,
+            "MSG-whatsapp": true,
+            
+          },
+        });
+        //snackbar
+        var x = document.getElementById("sb3");
+        x.classList.add("show");
+        setTimeout(function () {
+          x.className = x.className.replace("show", "");
+        }, 3000);
+      };
+    </script>
+    <!-- <script src="/clevertap_sw.js"></script> -->
+    <!-- send notification event -->
+    <br /><br />
+    <button id="event" onclick="webNotiEvent()">Send Notification</button>
+    <div class="snackbar" id="sb4">Send Notification Button Clicked!</div>
+    <script>
+      let webNotiEvent = () => {
+        clevertap.event.push("DIV1");
+        //snackbar
+        var x = document.getElementById("sb4");
+        x.classList.add("show");
+        setTimeout(function () {
+          x.className = x.className.replace("show", "");
+        }, 3000);
+      };
+    </script>
+    
+  </body>
+</html>
